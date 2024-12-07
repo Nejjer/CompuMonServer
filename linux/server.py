@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS  # Импортируем CORS
-from linux.getCpuTemp import get_cpu_temperature_inxi
+from getCpuTemp import get_cpu_temperature_inxi
 from getMemory import get_memory_info
 from getCpuUsage import get_cpu_usage
 from getFanSpeed import get_fan_speed_inxi
@@ -33,7 +33,7 @@ thread_cpu_usage = threading.Thread(target=update_cpu_usage, daemon=True)
 thread_cpu_temperature = threading.Thread(target=update_cpu_temperature, daemon=True)
 
 thread_cpu_usage.start()
-#thread_cpu_temperature.start()
+thread_cpu_temperature.start()
 
 app = Flask(__name__)
 CORS(app)  # Разрешаем все CORS-запросы
@@ -63,4 +63,4 @@ def get_cpu_status():
     return jsonify(pc_status)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='192.168.1.119', port=5000)
