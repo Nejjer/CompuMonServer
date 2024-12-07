@@ -1,11 +1,13 @@
 from flask import Flask, jsonify
 from flask_cors import CORS  # Импортируем CORS
 import clr
-
+import os
 
 from winGetPCInfo import get_gpu_load, get_ram_info, get_cpu_load_and_temperature
 
-clr.AddReference("F:\Downloads\LibreHardwareMonitor-net472\LibreHardwareMonitorLib.dll")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+library_path = os.path.join(current_dir, 'lib', 'LibreHardwareMonitorLib.dll')
+clr.AddReference(library_path)
 from LibreHardwareMonitor.Hardware import Computer, HardwareType, SensorType
 
 # Инициализация объекта Computer
