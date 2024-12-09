@@ -29,13 +29,13 @@ def get_cpu_status():
     # Формируем ответ в заданном формате
     pc_status = {
         "cpu": {
-            "loads": round(cpu_load),
-            "temperatures": round(cpu_temperature),
+            "load": round(cpu_load),
+            "temperature": round(cpu_temperature),
             'fanSpeed': round(fan_speed)
         },
         "gpu": {
-            "loads": gpu_load,
-            "temperatures": gpu_temperature,
+            "load": gpu_load,
+            "temperature": gpu_temperature,
             "memory": {
                 "total": round(gpu_memory_total / 1024),
                 "used": round(gpu_memory_used / 1024),
