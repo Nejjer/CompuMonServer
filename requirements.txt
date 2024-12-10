@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydantic
+pythonnet
+psutil
+pydantic-settings

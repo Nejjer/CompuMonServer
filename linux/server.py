@@ -2,7 +2,7 @@ import threading
 import time
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from getCpuTemp import get_cpu_temperature_inxi
 from getMemory import get_memory_info
 from getCpuUsage import get_cpu_usage

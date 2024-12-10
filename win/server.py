@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 import clr
 import os
 
@@ -8,7 +8,7 @@ from winGetPCInfo import get_gpu_load, get_ram_info, get_cpu_load_and_temperatur
 
 # Импортируем библиотеку LibreHardwareMonitor
 current_dir = os.path.dirname(os.path.abspath(__file__))
-library_path = os.path.join(current_dir, '../lib', 'LibreHardwareMonitorLib.dll')
+library_path = os.path.join(current_dir, '..\lib', 'LibreHardwareMonitorLib.dll')
 clr.AddReference(library_path)
 from LibreHardwareMonitor.Hardware import Computer, HardwareType, SensorType
 
