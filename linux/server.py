@@ -31,7 +31,7 @@ def update_cpu_usage():
     global cpu_usage_per_core
     while True:
         cpu_usage_per_core = get_cpu_usage()
-        print(f"Обновление загрузки процессора: {cpu_usage_per_core}")
+       # print(f"Обновление загрузки процессора: {cpu_usage_per_core}")
         time.sleep(0.1)
 
 # Функция для обновления температуры процессора
@@ -39,7 +39,7 @@ def update_cpu_temperature():
     global avg_temperature
     while True:
         avg_temperature = get_cpu_temperature_inxi()
-        print(f"Обновление температуры процессора: {avg_temperature}")
+        #print(f"Обновление температуры процессора: {avg_temperature}")
         time.sleep(0.5)
 
 # Запускаем потоки для обновления данных
@@ -71,18 +71,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Подключаем раздачу статических файлов
-app.mount("/mon/", StaticFiles(directory=static_folder, html=True), name="assets")
-
-# Главная точка входа
-@app.get("/mon/")
-async def index():
-    index_file = static_folder / "index.html"
-    if index_file.exists():
-        return FileResponse(index_file)
-    return {"error": "index.html not found"}
-
-@app.get("/api/getPcStatus")
+@app.get("/mon/api/getPcStatus")
 def get_pc_status():
     memory_info = get_memory_info()
     fan_info = get_fan_speed_inxi()
@@ -104,6 +93,19 @@ def get_pc_status():
     print(pc_status)
 
     return pc_status
+
+# Подключаем раздачу статических файлов
+app.mount("/mon/", StaticFiles(directory=static_folder, html=True), name="assets")
+
+# Главная точка входа
+@app.get("/mon/")
+async def index():
+    index_file = static_folder / "index.html"
+    if index_file.exists():
+        return FileResponse(index_file)
+    return {"error": "index.html not found"}
+
+
 
 if __name__ == "__main__":
     import uvicorn
