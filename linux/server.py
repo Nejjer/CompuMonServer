@@ -7,10 +7,21 @@ from getCpuTemp import get_cpu_temperature_inxi
 from getMemory import get_memory_info
 from getCpuUsage import get_cpu_usage
 from getFanSpeed import get_fan_speed_inxi
-
+from pathlib import Path
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 # Глобальные переменные для хранения результатов
 cpu_usage_per_core = None
 avg_temperature = None
+
+# Указываем путь к папке с вашими статическими файлами
+static_folder = Path("dist")
+
+# Проверяем, существует ли папка dist
+if not static_folder.exists():
+    raise FileNotFoundError(f"Static folder '{static_folder}' does not exist")
+
+
 
 # Функция для обновления загрузки процессора
 def update_cpu_usage():
@@ -56,6 +67,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Подключаем раздачу статических файлов
+app.mount("/", StaticFiles(directory=static_folder, html=True), name="static")
+
+# Главная точка входа
+@app.get("/index.html")
+async def index():
+    index_file = static_folder / "index.html"
+    if index_file.exists():
+        return FileResponse(index_file)
+    return {"error": "index.html not found"}
 
 @app.get("/api/getPcStatus")
 def get_pc_status():

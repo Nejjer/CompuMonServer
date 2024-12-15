@@ -1,0 +1,13 @@
+{
+  "name": "My PWA",
+  "icons": [
+    {
+      "src": "public/vite.svg",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "http:/192.168.1.164:3000",
+  "prefer-related-application":false,
+  "display": "standalone"
+}
