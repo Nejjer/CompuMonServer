@@ -72,7 +72,7 @@ app.add_middleware(
 )
 
 # Подключаем раздачу статических файлов
-app.mount("/mon/assets", StaticFiles(directory=static_folder, html=True), name="assets")
+app.mount("/mon/", StaticFiles(directory=static_folder, html=True), name="assets")
 
 # Главная точка входа
 @app.get("/mon/")
