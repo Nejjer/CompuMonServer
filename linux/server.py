@@ -16,7 +16,10 @@ avg_temperature = None
 
 # Указываем путь к папке с вашими статическими файлами
 static_folder = Path("dist")
+assets_folder = static_folder / "assets"  # Папка для JS и CSS
 
+if not assets_folder.exists():
+    raise FileNotFoundError(f"Assets folder '{assets_folder}' does not exist")
 # Проверяем, существует ли папка dist
 if not static_folder.exists():
     raise FileNotFoundError(f"Static folder '{static_folder}' does not exist")
@@ -69,10 +72,10 @@ app.add_middleware(
 )
 
 # Подключаем раздачу статических файлов
-app.mount("/", StaticFiles(directory=static_folder, html=True), name="static")
+app.mount("/mon/assets", StaticFiles(directory=static_folder, html=True), name="assets")
 
 # Главная точка входа
-@app.get("/index.html")
+@app.get("/mon/")
 async def index():
     index_file = static_folder / "index.html"
     if index_file.exists():
