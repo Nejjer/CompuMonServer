@@ -1,0 +1,1 @@
+.\.winVenv\Scripts\activate ; sudo python .\win\server.py
